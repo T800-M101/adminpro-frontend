@@ -17,3 +17,13 @@
     text-align: center;
 }
 
+.no-cursor{
+    cursor: not-allowed;
+}
+
+.img-avatar{
+    width: 200px;
+    height: 200px;
+    margin-bottom: 10px;
+}
+

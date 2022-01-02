@@ -6,6 +6,7 @@ import { catchError, map, tap } from 'rxjs/operators'; // Dispara efecto secunda
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
+import { User } from '../models/user.model';
 
 const base_url = environment.base_url;
 declare const gapi:any;
@@ -16,11 +17,19 @@ declare const gapi:any;
 export class UserService {
 
   public auth2:any;
+  public user!:User;
 
   constructor(private http:HttpClient, private router:Router, private ngZone: NgZone) { 
     this.googleInit();
   }
 
+  get token(): string{
+    return localStorage.getItem('token') || '';
+  }
+
+  get uid(): string {
+    return this.user.uid || '';
+  }
 
 googleInit(){
 
@@ -56,16 +65,20 @@ googleInit(){
   }
 
   validateToken():Observable<boolean>{
-    const token = localStorage.getItem('token') || '';
+    
     return this.http.get(`${base_url}/login/renew`, {
       headers:{
-        'x-token':token
+        'x-token':this.token
       }
     }).pipe(
-      tap( (resp:any) => {
+      map( (resp:any) => {
+        const { email, google, name, role, img = '', uid } = resp.user;
+        this.user = new User(name,email,'', img, google, role, uid);
+        
         localStorage.setItem('token', resp.token)
+        return true;
       }),
-      map( resp => true),
+     
       catchError( error => of(false)) // el of retorna un nuevo observable
     );
   }
@@ -81,12 +94,26 @@ googleInit(){
                     );
   }
 
+  updateProfile(data: {email:string, name:string, role:string}){
+
+    data = {
+      ...data,
+      role: this.user.role || ''
+    };
+
+     return this.http.put(`${base_url}/users/${this.uid}`, data, {
+       headers: {
+         'x-token': this.token
+       }
+     })
+  }
 
   login(formData: LoginForm){
    
     return this.http.post(`${base_url}/login`, formData)
                     .pipe(
                       tap( (resp:any) => {
+                        
                          localStorage.setItem('token',resp.token)
                       })
                     );
