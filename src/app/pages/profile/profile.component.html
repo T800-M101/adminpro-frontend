@@ -4,7 +4,7 @@
             <div class="card-body">
                 <h4 class="card-title">My user profile</h4>
                 <h6 class="card-subtitle">Preferences</h6>
-                <form class="form p-t-20" 
+                <form class="form p-t-20"
                       [formGroup]="profileForm"
                       (submit)="updateProfile()">
                     <div class="form-group">
@@ -12,9 +12,9 @@
 
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-user"></i></div>
-                            <input type="text" 
-                                   class="form-control" 
-                                   id="exampleInputuname" 
+                            <input type="text"
+                                   class="form-control"
+                                   id="exampleInputuname"
                                    placeholder="Username"
                                    formControlName="name">
                         </div>
@@ -24,23 +24,23 @@
                         <label for="exampleInputEmail1">Email address</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-email"></i></div>
-                            <input type="email" 
-                                   class="form-control" 
-                                   id="exampleInputEmail1" 
+                            <input type="email"
+                                   class="form-control"
+                                   id="exampleInputEmail1"
                                    placeholder="Enter email"
                                    formControlName="email"
                                    [readOnly]="user.google">
                         </div>
                     </div>
-                   
-                    <button type="submit" 
+
+                    <button type="submit"
                             class="btn btn-success waves-effect waves-light m-r-10 btn-block"
                             [disabled]="profileForm.invalid"
                             [ngClass]="{'no-cursor':profileForm.invalid}">
-                            <i class="fa fa-save"></i> 
+                            <i class="fa fa-save"></i>
                             Save changes
                     </button>
-                   
+
                 </form>
             </div>
         </div>
@@ -50,30 +50,31 @@
             <div class="card-body">
                 <h4 class="card-title">Avatar</h4>
                 <h6 class="card-subtitle">User image</h6>
+                
                 <div class="text-center">
                     <img *ngIf="!imgTemp" [src]="user.imageUrl" alt="user_img" class="img-avatar">
                     <img *ngIf="imgTemp" [src]="imgTemp" alt="user_img" class="img-avatar">
 
                 </div>
-                <input type="file" 
+                <input type="file"
                        (change)="uploadImg($event)">
                 <br>
                 <br>
-                <button type="button" 
+                <button type="button"
                         class="btn btn-success waves-effect waves-light m-r-10 btn-block"
                         [disabled]="!imageUpload"
                         (click)="changeImg()"
                         [ngClass]="{'no-cursor':!imageUpload}">
-                        <i class="fa fa-save"></i> 
+                        <i class="fa fa-save"></i>
                         Change image
                 </button>
-                
+
 
 
             </div>
         </div>
     </div>
-    
+
 
 
 

@@ -27,3 +27,41 @@
     margin-bottom: 10px;
 }
 
+.w100{
+    width: 100px;
+}
+
+.w140{
+  width: 140px;
+}
+
+.avatar {
+    width:60px;
+    height: 60px;
+    border-radius: 100px;
+
+}
+
+.fondo-modal-image{
+  background-color: rgba(0, 0, 0, 0.4);
+  position:fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  animation-name: modalopen;
+  animation-duration: 1s;
+
+}
+
+.hidden{
+  display: none;
+
+}
+
+@keyframes modalopen{
+  from{opacity: 0;}
+  to{opacity: 1;}
+}
+

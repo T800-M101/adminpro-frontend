@@ -16,11 +16,11 @@ export class User {
 
     get imageUrl(){
 
-        if(this.img?.includes('http')){
+       if(!this.img){
+        return `${base_url}/upload/users/no-img`;
+       }else if(this.img?.includes('http')){
             return this.img;
-        }
-
-        if(this.img){
+        }else if(this.img){
             return `${base_url}/upload/users/${this.img}`;
         }else {
 
